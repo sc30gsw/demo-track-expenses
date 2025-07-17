@@ -38,17 +38,6 @@
       </command>
     </category>
     
-    <category name="test">
-      <command>
-        <execute>bun run test</execute>
-        <description>Playwright E2Eテストを実行</description>
-      </command>
-      <command>
-        <execute>bun run test:ui</execute>
-        <description>インタラクティブUIモードでテストを実行</description>
-      </command>
-    </category>
-    
     <category name="code-quality">
       <command>
         <execute>bun run format</execute>
@@ -306,6 +295,7 @@
     <instruction priority="4">パフォーマンスを常に考慮する</instruction>
     <instruction priority="5">コードコメントは日本語で記述</instruction>
     <instruction priority="6">実装前に必ず設計を確認する</instruction>
+    <instruction priority="7">ライブラリ実装時はContext7 MCPにドキュメントがあるものについては、ドキュメントを参照する</instruction>
   </ai-assistant-instructions>
 
   <prohibited-items priority="highest">
