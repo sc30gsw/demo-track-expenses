@@ -1,7 +1,6 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import { createClient } from '~/lib/supabase/server'
 import { updatePasswordSchema } from '../types/schema/auth-schema'
 
@@ -19,7 +18,10 @@ export async function updatePasswordAction(formData: FormData) {
     const validatedData = updatePasswordSchema.parse(rawData)
 
     // 現在のユーザーを確認
-    const { data: { user }, error: userError } = await supabase.auth.getUser()
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser()
 
     if (userError || !user) {
       console.error('ユーザー情報取得エラー:', userError)
@@ -36,10 +38,10 @@ export async function updatePasswordAction(formData: FormData) {
 
     if (error) {
       console.error('パスワード更新エラー:', error)
-      
+
       // エラーメッセージをユーザーフレンドリーに変換
       let errorMessage = 'パスワードの更新に失敗しました'
-      
+
       if (error.message.includes('Password should be at least')) {
         errorMessage = 'パスワードは6文字以上である必要があります'
       } else if (error.message.includes('New password should be different')) {
@@ -47,7 +49,7 @@ export async function updatePasswordAction(formData: FormData) {
       } else if (error.message.includes('Password is too weak')) {
         errorMessage = 'パスワードが脆弱です。より強固なパスワードを設定してください'
       }
-      
+
       return {
         success: false,
         error: errorMessage,
@@ -56,21 +58,21 @@ export async function updatePasswordAction(formData: FormData) {
 
     // パスワード更新成功時の処理
     revalidatePath('/', 'layout')
-    
+
     return {
       success: true,
       message: 'パスワードを更新しました',
     }
   } catch (error) {
     console.error('パスワード更新処理エラー:', error)
-    
+
     if (error instanceof Error) {
       return {
         success: false,
         error: error.message,
       }
     }
-    
+
     return {
       success: false,
       error: '予期しないエラーが発生しました',
