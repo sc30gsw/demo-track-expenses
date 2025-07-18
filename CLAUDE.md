@@ -65,6 +65,7 @@
       <technology category="database & auth">
         <name>Supabase</name>
         <features>BaaS（Backend as a Service）であるSupabaseを利用し、認証もSupabaseで実装する</features>
+        <features>AIはSupabase MCPをこのプロジェクトで使用することができるため、活用すること</features>
       </technology>
       <technology category="styling">
         <name>Tailwind CSS</name>
