@@ -1,83 +1,152 @@
-import Image from 'next/image'
+import { AppLayout } from '~/components/ui/app-layout'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/shadcn/card'
+import { Badge } from '~/components/ui/shadcn/badge'
+import { CalendarDays, TrendingUp, Target, AlertCircle } from 'lucide-react'
 
-export default function Home() {
+export default function Dashboard() {
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
-      <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-center font-mono text-sm/6 sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{' '}
-            <code className="rounded bg-black/[.05] px-1 py-0.5 font-mono font-semibold dark:bg-white/[.06]">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <a
-            className="flex h-10 items-center justify-center gap-2 rounded-full border border-transparent border-solid bg-foreground px-4 font-medium text-background text-sm transition-colors hover:bg-[#383838] sm:h-12 sm:w-auto sm:px-5 sm:text-base dark:hover:bg-[#ccc]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="flex h-10 w-full items-center justify-center rounded-full border border-black/[.08] border-solid px-4 font-medium text-sm transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:w-auto sm:px-5 sm:text-base md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/window.svg" alt="Window icon" width={16} height={16} />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <AppLayout>
+      <div className="flex items-center">
+        <h1 className="font-semibold text-lg md:text-2xl">ダッシュボード</h1>
+      </div>
+      
+      {/* 統計カード群 */}
+      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="font-medium text-sm">今月の支出</CardTitle>
+            <CalendarDays className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="font-bold text-2xl">¥85,420</div>
+            <p className="text-muted-foreground text-xs">
+              前月比 <span className="text-green-600">-5.2%</span>
+            </p>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="font-medium text-sm">予算残高</CardTitle>
+            <Target className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="font-bold text-2xl">¥34,580</div>
+            <p className="text-muted-foreground text-xs">
+              予算使用率 <Badge variant="secondary">71%</Badge>
+            </p>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="font-medium text-sm">節約効果</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="font-bold text-2xl">¥12,350</div>
+            <p className="text-muted-foreground text-xs">
+              目標比 <span className="text-green-600">+8.1%</span>
+            </p>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="font-medium text-sm">カテゴリ数</CardTitle>
+            <AlertCircle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="font-bold text-2xl">7</div>
+            <p className="text-muted-foreground text-xs">
+              アクティブなカテゴリ
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+      
+      {/* 最近の活動 */}
+      <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
+        <Card className="xl:col-span-2">
+          <CardHeader>
+            <CardTitle>最近の支出</CardTitle>
+            <CardDescription>
+              過去7日間の支出記録
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <div className="ml-4 space-y-1">
+                  <p className="font-medium text-sm leading-none">コンビニエンスストア</p>
+                  <p className="text-muted-foreground text-sm">
+                    食費 • 今日
+                  </p>
+                </div>
+                <div className="ml-auto font-medium">¥680</div>
+              </div>
+              <div className="flex items-center">
+                <div className="ml-4 space-y-1">
+                  <p className="font-medium text-sm leading-none">電車代</p>
+                  <p className="text-muted-foreground text-sm">
+                    交通費 • 昨日
+                  </p>
+                </div>
+                <div className="ml-auto font-medium">¥240</div>
+              </div>
+              <div className="flex items-center">
+                <div className="ml-4 space-y-1">
+                  <p className="font-medium text-sm leading-none">映画鑑賞</p>
+                  <p className="text-muted-foreground text-sm">
+                    娯楽費 • 2日前
+                  </p>
+                </div>
+                <div className="ml-auto font-medium">¥1,800</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle>今月の目標</CardTitle>
+            <CardDescription>
+              予算管理の進捗状況
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">食費</span>
+                  <span className="text-sm">75%</span>
+                </div>
+                <div className="h-2 rounded-full bg-muted">
+                  <div className="h-2 w-3/4 rounded-full bg-primary" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">娯楽費</span>
+                  <span className="text-sm">60%</span>
+                </div>
+                <div className="h-2 rounded-full bg-muted">
+                  <div className="h-2 w-3/5 rounded-full bg-primary" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">交通費</span>
+                  <span className="text-sm">45%</span>
+                </div>
+                <div className="h-2 rounded-full bg-muted">
+                  <div className="h-2 w-2/5 rounded-full bg-primary" />
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </AppLayout>
   )
 }

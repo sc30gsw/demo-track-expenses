@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import QueryProvider from '~/components/providers/query-provider'
+import { ThemeProvider } from '~/components/providers/theme-provider'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
@@ -16,5 +17,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
     return null
   }
 
-  return <QueryProvider>{children}</QueryProvider>
+  return (
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <QueryProvider>{children}</QueryProvider>
+    </ThemeProvider>
+  )
 }

@@ -1,13 +1,13 @@
+import { getAuthenticatedUserId } from '~/features/auth/utils/auth-utils'
 import { createClient } from '~/lib/supabase/server'
 import type { BudgetUsage } from '~/types/budget'
-import { getAuthenticatedUserId } from '~/features/auth/utils/auth-utils'
-import { transformBudgetRow } from '../utils/transform'
 import {
+  BUDGET_EXCEEDED_THRESHOLD,
+  BUDGET_WARNING_THRESHOLD,
   budgetPeriodSchema,
   getCurrentMonthYear,
-  BUDGET_WARNING_THRESHOLD,
-  BUDGET_EXCEEDED_THRESHOLD,
 } from '../types/schema/budget-schema'
+import { transformBudgetRow } from '../utils/transform'
 
 // 予算取得
 export async function getBudget(month?: number, year?: number) {
@@ -36,7 +36,7 @@ export async function getBudget(month?: number, year?: number) {
       throw new Error('予算の取得に失敗しました')
     }
 
-    return { success: true, data: transformBudgetRow(data as BudgetRow) }
+    return { success: true, data: transformBudgetRow(data) }
   } catch (error) {
     console.error('予算取得処理エラー:', error)
     return {
@@ -103,7 +103,12 @@ export async function getBudgetUsage(
 }
 
 // 複数月の予算一覧取得
-export async function getBudgets(startYear: number, startMonth: number, endYear: number, endMonth: number) {
+export async function getBudgets(
+  startYear: number,
+  startMonth: number,
+  endYear: number,
+  endMonth: number,
+) {
   try {
     const supabase = await createClient()
     const userId = await getAuthenticatedUserId()
